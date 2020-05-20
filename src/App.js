@@ -13,23 +13,30 @@ class App extends React.Component {
     // set the initial state keys/values
     this.state = {
       items: [],
+    // currentItem object
       currentItem: {
         text: "",
         key: "",
       },
     };
+    // this keyword does not point to the class automatically, we bind it with a constructor outside the state 
     this.addItem = this.addItem.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
     this.setUpdate = this.setUpdate.bind(this);
   }
 
+  // create item with unique id 
   addItem(e) {
     e.preventDefault();
     const newItem = this.state.currentItem;
-    // if text is not empty then...
+    // if newItem.text is not empty then...
+    // add newItem to the list
     if (newItem.text !== "") {
+      // unpacked the elements in the list and second newItem is added to the list
+      // spread operator makes a copy of the current list of items, then add newItem to the list
       const items = [...this.state.items, newItem];
+      // update the state values
       this.setState({
         items: items,
         currentItem: {
@@ -47,12 +54,16 @@ class App extends React.Component {
       },
     });
   }
+
   deleteItem(key) {
+    // filters out all the item.key that do not match to filteredItems
     const filteredItems = this.state.items.filter((item) => item.key !== key);
     this.setState({
       items: filteredItems,
     });
   }
+
+  // update react state
   setUpdate(text, key) {
     console.log("items: this.state.items");
     const items = this.state.items;
