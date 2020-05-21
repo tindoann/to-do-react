@@ -1,5 +1,6 @@
+// App.js is the controlled component  
+
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import ListItems from "./ListItems";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -7,6 +8,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 library.add(faTrash);
 
+// create a class component in order to use state method
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -19,6 +21,7 @@ class App extends React.Component {
         key: "",
       },
     };
+
     // this keyword does not point to the class automatically, we bind it with a constructor outside the state 
     this.addItem = this.addItem.bind(this);
     this.handleInput = this.handleInput.bind(this);
@@ -46,6 +49,8 @@ class App extends React.Component {
       });
     }
   }
+
+  // when user enters input, this method will update the event in state
   handleInput(e) {
     this.setState({
       currentItem: {
@@ -55,6 +60,7 @@ class App extends React.Component {
     });
   }
 
+  // this method will remove the item in the list
   deleteItem(key) {
     // filters out all the item.key that do not match to filteredItems
     const filteredItems = this.state.items.filter((item) => item.key !== key);
@@ -63,10 +69,11 @@ class App extends React.Component {
     });
   }
 
-  // update react state
+  // update state
   setUpdate(text, key) {
     console.log("items: this.state.items");
     const items = this.state.items;
+    // if key matches then update item.text
     items.map((item) => {
       if (item.key === key) {
         console.log(item.key + " " + key);
@@ -77,6 +84,8 @@ class App extends React.Component {
       items: items,
     });
   }
+
+  // displays to the dom 
   render() {
     return (
       <div className="App">
